@@ -1,0 +1,46 @@
+/* components/ListaEstudiantes.css */
+.lista-estudiantes {
+    margin: 20px;
+  }
+  
+  .buscador {
+    margin-bottom: 20px;
+  }
+  
+  .buscador input {
+    padding: 8px;
+    margin-right: 8px;
+    width: 300px;
+  }
+  
+  .buscador button {
+    padding: 8px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .resultado {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .ver-perfil {
+    padding: 8px;
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  

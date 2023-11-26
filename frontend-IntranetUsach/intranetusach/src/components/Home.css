@@ -1,0 +1,27 @@
+/* components/Home.css */
+.content {
+    margin: 20px;
+  }
+  
+  .noticias {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+  }
+  
+  .informacion-inscripcion {
+    background-color: #e0e0e0;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .informacion-inscripcion ul {
+    list-style-type: square;
+    padding-left: 20px;
+  }
+  
+  .informacion-inscripcion h3 {
+    color: #333;
+  }
+  
