@@ -21,6 +21,7 @@ public class Estudiante {
     private String apellidos;
     private String email;
     private int cantidad_asignaturas;
+    private int nivel;
     @OneToOne
     @JoinColumn(name = "cod_carrera")
     private Carrera carrera;
