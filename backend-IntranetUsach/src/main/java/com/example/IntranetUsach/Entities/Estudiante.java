@@ -22,6 +22,8 @@ public class Estudiante {
     private Long rut;
     private String nombres;
     private String apellidos;
+    private String email;
+    private int cantidad_asignaturas;
 }
 
 
