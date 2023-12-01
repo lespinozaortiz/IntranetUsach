@@ -17,6 +17,8 @@ public class Horarios {
     @ManyToOne
     @JoinColumn(name = "cod_asignatura")
     private Asignatura asignatura;//llave foranea
+    String dia;
+    String modulo;
     
 
 }
