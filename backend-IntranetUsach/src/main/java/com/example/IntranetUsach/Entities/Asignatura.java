@@ -21,7 +21,6 @@ public class Asignatura {
     private String cod_plan;
     private String nombre_asignatura;
     private int nivel;
-    private String horario;
     private int cupo;
     private int cantidad_estudiantes;
 

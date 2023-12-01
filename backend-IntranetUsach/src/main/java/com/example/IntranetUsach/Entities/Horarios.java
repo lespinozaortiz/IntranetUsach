@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Table
@@ -19,6 +20,8 @@ public class Horarios {
     private Asignatura asignatura;//llave foranea
     String dia;
     String modulo;
-    
+    LocalDate hora_inicio;
+    LocalDate hora_final;
+
 
 }

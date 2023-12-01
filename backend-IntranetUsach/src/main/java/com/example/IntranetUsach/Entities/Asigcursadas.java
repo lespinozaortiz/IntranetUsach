@@ -1,12 +1,16 @@
 package com.example.IntranetUsach.Entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Asigcursadas {
     @Id
     private Long id_asigcursadas;
@@ -16,7 +20,7 @@ public class Asigcursadas {
     @ManyToOne
     @JoinColumn(name = "cod_asignatura")
     private Asignatura asignatura;//llave foranea
-    private int cantidad;
+    private int veces_cursada;
     private String estado;
 
 }
