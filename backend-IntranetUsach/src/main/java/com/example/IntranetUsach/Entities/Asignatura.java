@@ -20,8 +20,10 @@ public class Asignatura {
     private Carrera carrera;//llave foranea
     private String cod_plan;
     private String nombre_asignatura;
-    private int nivel;
-    private int cupo;
-    private int cantidad_estudiantes;
+    private Integer nivel;
+    @Column(name = "cupo", nullable = true)
+    private Integer cupo;
+    @Column(name = "cantidad_estudiantes", nullable = true)
+    private Integer cantidad_estudiantes;
 
 }

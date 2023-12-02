@@ -13,10 +13,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Nota {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_nota;
+
     @ManyToOne
     @JoinColumn(name = "rut")
     private Estudiante estudiante;//llave foranea
+
     @ManyToOne
     @JoinColumn(name = "cod_asignatura")
     private Asignatura asignatura;//llave foranea

@@ -6,6 +6,8 @@ import ListaEstudiantes from './components/ListaEstudiantes';
 import Estudiante from './components/Estudiante';
 import InscribirAsignaturas from './components/InscribirAsignaturas';
 import Asignaturas from './components/Asignaturas';
+import IngresoHorario from './components/IngresoHorario';
+
 
 const App = () => {
   return (
@@ -16,6 +18,8 @@ const App = () => {
         <Route path="/estudiante/:id" element={<Estudiante />} />
         <Route path="/inscribir-asignaturas" element={<InscribirAsignaturas />} />
         <Route path="/asignaturas" element={<Asignaturas />} />
+        <Route path="/ingreso-horario" element={<IngresoHorario />} />
+
       </Routes>
     </Router>
   );

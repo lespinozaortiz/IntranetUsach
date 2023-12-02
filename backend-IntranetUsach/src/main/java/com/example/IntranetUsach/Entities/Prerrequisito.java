@@ -13,6 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Prerrequisito {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_prerrequisito;
     @ManyToOne
     @JoinColumn(name = "cod_asignatura")

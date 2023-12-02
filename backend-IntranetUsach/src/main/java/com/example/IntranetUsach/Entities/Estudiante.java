@@ -16,16 +16,20 @@ import javax.persistence.*;
 public class Estudiante {
     @Id
     @Column(name = "rut", nullable = false, unique = true)
-    private Long rut;
+    private String rut;
     private String nombres;
     private String apellidos;
     private String email;
-    private int cantidad_asignaturas;
-    private int nivel;
-    private String situacion;
     @OneToOne
     @JoinColumn(name = "cod_carrera")
     private Carrera carrera;
+    @Column(name = "cantidad_asignaturas", nullable = true)
+    private Integer cantidad_asignaturas;
+    @Column(name = "nivel", nullable = true)
+    private Integer nivel;
+    @Column(name = "situacion", nullable = true)
+    private String situacion;
+
 }
 
 
