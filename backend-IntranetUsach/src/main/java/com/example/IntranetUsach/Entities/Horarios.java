@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table
@@ -14,14 +14,15 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class Horarios {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_horario;
     @ManyToOne
     @JoinColumn(name = "cod_asignatura")
     private Asignatura asignatura;//llave foranea
     String dia;
     String modulo;
-    LocalDate hora_inicio;
-    LocalDate hora_final;
+    LocalTime hora_inicio;
+    LocalTime hora_final;
 
 
 }

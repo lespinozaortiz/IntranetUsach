@@ -19,6 +19,7 @@ const Navbar = () => {
         <Link to="/lista-estudiantes">Lista de Estudiantes</Link>
         <Link to="/inscribir-asignaturas">Inscribir Asignaturas</Link>
         <Link to="/asignaturas">Asignaturas</Link>
+        <Link to="/ingreso-horario">Ingresar Horarios</Link>
         {/* Agrega otros enlaces según sea necesario */}
       </div>
     </div>
