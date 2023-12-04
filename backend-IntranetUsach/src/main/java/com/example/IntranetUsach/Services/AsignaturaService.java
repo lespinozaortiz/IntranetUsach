@@ -36,5 +36,9 @@ public class AsignaturaService {
         Long codCarrera = carrera.getCodcarr(); // Extraer el código de la carrera
         return asignaturaRepository.findByCarreraCodcarrAndNivel(codCarrera,nivel);
     }
+    public Asignatura save(Asignatura asignatura) {
+        // Aquí puedes agregar lógica adicional antes de guardar si es necesario
+        return asignaturaRepository.save(asignatura);
+    }
 
 }

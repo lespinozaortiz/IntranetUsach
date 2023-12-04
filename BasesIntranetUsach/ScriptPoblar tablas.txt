@@ -1,23 +1,32 @@
 --csv de tabla carrera
 
-COPY carrera(cod_carrera, nombre_carrera) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\carreras.csv' DELIMITER ';' CSV HEADER;
+COPY carrera(codcarr, nombrecarrera) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\carreras.csv' DELIMITER ';' CSV HEADER;
 
 --csv de tabla estudiantes
 
-COPY estudiante(rut, nombres, apellidos, email, cod_carrera) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\estudiantes.csv' DELIMITER ';' CSV HEADER;
+COPY estudiante(rut, nombres, apellidos, email, codcarr) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\estudiantes.csv' DELIMITER ';' CSV HEADER;
 
 --csv de tabla asignaturas
 
-COPY asignatura(cod_carrera, cod_plan, nivel, cod_asignatura, nombre_asignatura) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\asignaturas.csv' DELIMITER ';' CSV HEADER;
+COPY asignatura(codcarr, codplan, nivel, codasig, nombreasig) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\asignaturas.csv' DELIMITER ';' CSV HEADER;
 
 --csv de prerrequisitos
 
-COPY prerrequisito(cod_asignatura, cod_prerrequisito) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\prerrequisitos.csv' DELIMITER ';' CSV HEADER;
+COPY prerrequisito(codasig, codprerrequisito) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\prerrequisitos.csv' DELIMITER ';' CSV HEADER;
 
 --csv de notas
 
 ALTER TABLE nota ADD COLUMN campo_nulo VARCHAR(255); -- se crea campo nulo por las ";", O el tipo de datos apropiado
 
-COPY nota(año, semestre, rut, cod_asignatura, nota, campo_nulo) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\notas.csv' DELIMITER ';' CSV HEADER;
+COPY nota(año, semestre, rut, codasig, nota, campo_nulo) FROM 'C:\Users\espin\Desktop\BasesIntranetUsach\notas.csv' DELIMITER ';' CSV HEADER;
 
 ALTER TABLE nota DROP COLUMN campo_nulo; --se borra el campo nulo
+
+UPDATE estudiante
+SET cantidadasignaturas = 0,
+    nivel = 1,
+    situacion = 'sin variacion';
+
+UPDATE asignatura
+SET cupo = 50,
+    cantidad_estudiantes = 0;

@@ -47,7 +47,7 @@ public class InscripcionService {
 
             // Verificar si el estudiante ya ha inscrito el máximo de asignaturas permitidas para su nivel
             if (asigcursadasService.countByEstudiante(estudiante) >= asignaturasCarreraNivel.size()) {
-                throw new RuntimeException("El estudiante ya ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel");
+                throw new RuntimeException("El estudiante ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel");
             }
             System.out.println("pasa segundo if");
 
@@ -74,7 +74,7 @@ public class InscripcionService {
 
                 // Comprobar si el estudiante ya ha cursado la asignatura el número máximo de veces permitido
                 if (vecesCursada >= limiteCursadas) {
-                    throw new RuntimeException("El estudiante ya ha cursado la asignatura " + limiteCursadas + " veces");
+                    throw new RuntimeException("El estudiante ha cursado la asignatura el máximo de veces permitido (" + limiteCursadas + " veces)");
                 }
                 System.out.println("pasa quinto if");
             }
@@ -104,6 +104,10 @@ public class InscripcionService {
             nuevaAsigcursadas.setEstado("en curso");
             asigcursadasService.save(nuevaAsigcursadas);
 
+            // Incrementar la cantidad de estudiantes en la asignatura
+            asignatura.setCantidadestudiantes(asignatura.getCantidadestudiantes() + 1);
+            asignaturaService.save(asignatura);
+
             // Añadir un mensaje de depuración después de guardar
             System.out.println("Asignatura guardada en la base de datos");
         } catch (Exception e) {
@@ -111,6 +115,7 @@ public class InscripcionService {
             System.out.println("Error al inscribir la asignatura: " + e.getMessage());
         }
     }
+
 
 
 }
