@@ -6,21 +6,24 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Table
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "asigcursadas")
 public class Asigcursadas {
     @Id
-    private Long id_asigcursadas;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "asigcursadas_seq")
+    @SequenceGenerator(name = "asigcursadas_seq", sequenceName = "asigcursadas_id_seq", allocationSize = 1)
+    private Long idasigcursadas;
     @ManyToOne
     @JoinColumn(name = "rut")
     private Estudiante estudiante;//llave foranea
     @ManyToOne
-    @JoinColumn(name = "cod_asignatura")
+    @JoinColumn(name = "codasig")
     private Asignatura asignatura;//llave foranea
-    private int veces_cursada;
+    private int vecescursada;
     private String estado;
 
 }

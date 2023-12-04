@@ -21,7 +21,7 @@ public class Nota {
     private Estudiante estudiante;//llave foranea
 
     @ManyToOne
-    @JoinColumn(name = "cod_asignatura")
+    @JoinColumn(name = "codasig")
     private Asignatura asignatura;//llave foranea
     int año;
     int semestre;

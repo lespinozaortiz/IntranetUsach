@@ -25,5 +25,10 @@ public class EstudianteService {
         estudianteRepository.save(estudiante);
     }
 
+    public Estudiante findByRut(String rut) {
+        return estudianteRepository.findByRut(rut)
+                .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con el rut: " + rut));
+    }
+
     // Otros métodos necesarios
 }

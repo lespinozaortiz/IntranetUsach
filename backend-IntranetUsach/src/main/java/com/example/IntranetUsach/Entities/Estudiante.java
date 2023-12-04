@@ -21,10 +21,10 @@ public class Estudiante {
     private String apellidos;
     private String email;
     @OneToOne
-    @JoinColumn(name = "cod_carrera")
+    @JoinColumn(name = "codcarr")
     private Carrera carrera;
-    @Column(name = "cantidad_asignaturas", nullable = true)
-    private Integer cantidad_asignaturas;
+    @Column(name = "cantidadasignaturas", nullable = true)
+    private Integer cantidadasig;
     @Column(name = "nivel", nullable = true)
     private Integer nivel;
     @Column(name = "situacion", nullable = true)

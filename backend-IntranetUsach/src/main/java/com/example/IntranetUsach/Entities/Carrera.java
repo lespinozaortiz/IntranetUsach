@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Carrera {
     @Id
-    @Column(name = "cod_carrera", nullable = false, unique = true)
-    private Long cod_carrera;
-    private String nombre_carrera;
+    @Column(name = "codcarr", nullable = false, unique = true)
+    private Long codcarr;
+    private String nombrecarrera;
 }

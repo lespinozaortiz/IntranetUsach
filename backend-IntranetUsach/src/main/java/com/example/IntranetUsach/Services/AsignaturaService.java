@@ -1,6 +1,7 @@
 package com.example.IntranetUsach.Services;
 
 import com.example.IntranetUsach.Entities.Asignatura;
+import com.example.IntranetUsach.Entities.Carrera;
 import com.example.IntranetUsach.Entities.Prerrequisito;
 import com.example.IntranetUsach.Repositories.AsignaturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,16 @@ public class AsignaturaService {
 
     public void saveAsignatura(Asignatura asignatura) {
         asignaturaRepository.save(asignatura);
+    }
+
+
+    public Asignatura findByCodAsignatura(Long codAsignatura) {
+        return asignaturaRepository.findByCodasig(codAsignatura)
+                .orElseThrow(() -> new RuntimeException("Asignatura no encontrada con el código: " + codAsignatura));
+    }
+    public List<Asignatura> findByCarreraAndNivel(Carrera carrera, Integer nivel) {
+        Long codCarrera = carrera.getCodcarr(); // Extraer el código de la carrera
+        return asignaturaRepository.findByCarreraCodcarrAndNivel(codCarrera,nivel);
     }
 
 }

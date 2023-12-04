@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PrerrequisitoRepository extends JpaRepository<Prerrequisito, Long> {
     List<Prerrequisito> findByAsignatura(Asignatura asignatura);
+
+    List<Prerrequisito> findByAsignatura_codasig(Long codAsignatura);
 }

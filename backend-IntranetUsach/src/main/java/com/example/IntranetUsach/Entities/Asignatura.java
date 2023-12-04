@@ -13,17 +13,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Asignatura {
     @Id
-    @Column(name = "cod_asignatura", nullable = false, unique = true)
-    private Long cod_asignatura;
+    @Column(name = "codasig", nullable = false, unique = true)
+    private Long codasig;
     @ManyToOne
-    @JoinColumn(name = "cod_carrera")
+    @JoinColumn(name = "codcarr")
     private Carrera carrera;//llave foranea
-    private String cod_plan;
-    private String nombre_asignatura;
+    private String codplan;
+    private String nombreasig;
     private Integer nivel;
     @Column(name = "cupo", nullable = true)
     private Integer cupo;
     @Column(name = "cantidad_estudiantes", nullable = true)
-    private Integer cantidad_estudiantes;
+    private Integer cantidadestudiantes;
 
 }

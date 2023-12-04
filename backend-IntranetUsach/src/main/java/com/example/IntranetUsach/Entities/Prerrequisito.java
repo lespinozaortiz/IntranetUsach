@@ -14,9 +14,9 @@ import javax.persistence.*;
 public class Prerrequisito {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_prerrequisito;
+    private Long idprerrequisito;
     @ManyToOne
-    @JoinColumn(name = "cod_asignatura")
+    @JoinColumn(name = "codasig")
     private Asignatura asignatura;
-    private int cod_prerrequisito;
+    private int codprerrequisito;
 }

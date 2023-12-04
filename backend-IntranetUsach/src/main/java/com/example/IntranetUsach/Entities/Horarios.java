@@ -17,7 +17,7 @@ public class Horarios {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_horario;
     @ManyToOne
-    @JoinColumn(name = "cod_asignatura")
+    @JoinColumn(name = "codasig")
     private Asignatura asignatura;//llave foranea
     String dia;
     String modulo;

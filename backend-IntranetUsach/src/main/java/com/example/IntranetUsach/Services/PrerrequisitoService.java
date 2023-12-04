@@ -21,5 +21,9 @@ public class PrerrequisitoService {
         return prerrequisitoRepository.findByAsignatura(asignatura);
     }
 
+    public List<Prerrequisito> findByCodAsignatura(Long codAsignatura) {
+        return prerrequisitoRepository.findByAsignatura_codasig(codAsignatura);
+    }
+
     // Otros métodos y servicios necesarios
 }
