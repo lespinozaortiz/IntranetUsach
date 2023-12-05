@@ -1,2 +1,2 @@
 # IntranetUsach
-Repositorio de desarrollo de una aplicación web con enfoque en monolítico y en frontend con React
+Repositorio de desarrollo de una aplicación web con enfoque monolítico con Java SpringBoot y en frontend con React
