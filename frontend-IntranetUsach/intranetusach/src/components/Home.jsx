@@ -20,7 +20,7 @@ const Home = () => {
           <h3>Información para la Inscripción de Asignaturas</h3>
           <ul>
             <li>Cada semestre lectivo, los estudiantes deben cursar al menos 3 asignaturas de su plan de estudios para mantenerse en la carrera.</li>
-            <li>Se puede tomar un ramo solo si ha pasado los prerequisitos.</li>
+            <li>Se puede tomar un ramo solo si ha pasado los prerrequisitos.</li>
             <li>Las asignaturas pueden ser cursadas para su aprobación hasta en 2 ocasiones. Reprobar 2 veces es eliminación. Las asignaturas de nivel 1 pueden cursarse hasta en 3 oportunidades.</li>
             <li>No debe haber tope de horario.</li>
             <li>Cada ramo tiene cupo máximo de estudiantes.</li>

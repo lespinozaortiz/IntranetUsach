@@ -106,7 +106,7 @@ const IngresoHorario = () => {
   const handleGuardarHorario = async () => {
     try {
       const response = await axios.post('http://localhost:8090/api/horarios/agregar', {
-        asignatura: { cod_asignatura: Number(horario.asignaturaId) },
+        asignatura: { codasig: Number(horario.asignaturaId) },
         dia: horario.dia,
         modulo: horario.modulo,
         hora_inicio: horario.horaInicio,
