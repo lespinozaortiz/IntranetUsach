@@ -1,32 +1,41 @@
+// DetalleAsignatura.js
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { useParams } from 'react-router-dom';
 import './DetalleAsignatura.css'; // Agrega tu archivo de estilos
+import axios from 'axios';
 
 const DetalleAsignatura = () => {
   const { id } = useParams();
   const [asignatura, setAsignatura] = useState({});
   const [estudiantesCursando, setEstudiantesCursando] = useState([]);
+  const [horarios, setHorarios] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         // Obtener detalles de la asignatura
-        const asignaturaResponse = await fetch(`http://localhost:8090/api/asignaturas/${id}`);
-        if (asignaturaResponse.ok) {
-          const asignaturaData = await asignaturaResponse.json();
-          setAsignatura(asignaturaData);
+        const asignaturaResponse = await axios.get(`http://localhost:8090/api/asignaturas/${id}`);
+        if (asignaturaResponse.data) {
+          setAsignatura(asignaturaResponse.data);
         } else {
-          console.error('Error al obtener detalles de la asignatura:', asignaturaResponse.statusText);
+          console.error('Error al obtener detalles de la asignatura');
         }
 
         // Obtener estudiantes cursando la asignatura
-        const estudiantesResponse = await fetch(`http://localhost:8090/api/asigcursadas/${id}`);
-        if (estudiantesResponse.ok) {
-          const estudiantesData = await estudiantesResponse.json();
-          setEstudiantesCursando(estudiantesData);
+        const estudiantesResponse = await axios.get(`http://localhost:8090/api/asigcursadas/${id}`);
+        if (estudiantesResponse.data) {
+          setEstudiantesCursando(estudiantesResponse.data);
         } else {
-          console.error('Error al obtener estudiantes cursando:', estudiantesResponse.statusText);
+          console.error('Error al obtener estudiantes cursando');
+        }
+
+        // Obtener horarios de la asignatura
+        const horariosResponse = await axios.get(`http://localhost:8090/api/horarios/getByAsignatura?codAsignatura=${id}`);
+        if (horariosResponse.data) {
+          setHorarios(horariosResponse.data);
+        } else {
+          console.error('Error al obtener horarios de la asignatura');
         }
       } catch (error) {
         console.error('Error al realizar la solicitud:', error);
@@ -48,6 +57,9 @@ const DetalleAsignatura = () => {
           <div>
             Cantidad de Estudiantes: {asignatura.cantidadestudiantes}
           </div>
+          <div>
+            Carrera: {asignatura.carrera ? asignatura.carrera.nombrecarrera : 'No disponible'}
+          </div>
         </div>
 
         <h3>Estudiantes Cursando</h3>
@@ -65,6 +77,26 @@ const DetalleAsignatura = () => {
               </div>
               <div>
                 <strong>Email:</strong> {asigcursada.estudiante.email}
+              </div>
+            </li>
+          ))}
+        </ul>
+
+        <h3>Horarios</h3>
+        <ul className="horarios-list">
+          {horarios.map(horario => (
+            <li key={horario.id_horario} className="horario-item">
+              <div>
+                <strong>Día:</strong> {horario.dia}
+              </div>
+              <div>
+                <strong>Módulo:</strong> {horario.modulo}
+              </div>
+              <div>
+                <strong>Hora Inicio:</strong> {horario.hora_inicio}
+              </div>
+              <div>
+                <strong>Hora Final:</strong> {horario.hora_final}
               </div>
             </li>
           ))}

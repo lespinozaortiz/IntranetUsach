@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin(origins ="http://localhost:5173")
 @RequestMapping("/api/horarios")
@@ -31,6 +33,11 @@ public class HorariosController {
         // Guardar el horario
         Horarios horarioGuardado = horariosService.guardarHorario(horario);
         return ResponseEntity.ok(horarioGuardado);
+    }
+
+    @GetMapping("/getByAsignatura")
+    public List<Horarios> getHorariosByAsignatura(@RequestParam Long codAsignatura) {
+        return horariosService.getHorariosByAsignaturaCod(codAsignatura);
     }
 
 }

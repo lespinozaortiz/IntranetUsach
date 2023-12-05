@@ -36,4 +36,8 @@ public class HorariosService {
         }
         return false; // No hay tope de horario
     }
+
+    public List<Horarios> getHorariosByAsignaturaCod(Long codAsignatura) {
+        return horariosRepository.findByAsignatura_Codasig(codAsignatura);
+    }
 }
