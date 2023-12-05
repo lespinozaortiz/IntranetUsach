@@ -1,26 +1,33 @@
 // components/ListaEstudiantes.js
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from './Navbar';
-import './ListaEstudiantes.css'; // Archivo de estilos CSS
-
-// Datos de ejemplo de estudiantes
-const estudiantesEjemplo = [
-  { id: 1, nombres: 'Juan Carlos', rut: '12345678-9', apellidos: 'Pérez González' },
-  { id: 2, nombres: 'María Alejandra', rut: '98765432-1', apellidos: 'Gómez Smith' },
-  { id: 3, nombres: 'Pedro Andrés', rut: '45678901-2', apellidos: 'Rodríguez López' },
-  { id: 4, nombres: 'Leonardo Iván', rut: '20424317-4', apellidos: 'Espinoza Ortiz' },
-  // Agrega más estudiantes según sea necesario
-];
+import axios from 'axios'; // Importa axios
+import './ListaEstudiantes.css'; // Importa el archivo de estilos CSS
 
 const ListaEstudiantes = () => {
   const [busqueda, setBusqueda] = useState('');
   const [resultados, setResultados] = useState([]);
+  const resultadosRef = useRef(resultados);
+
+  useEffect(() => {
+    const obtenerEstudiantes = async () => {
+      try {
+        const response = await axios.get('http://localhost:8090/api/estudiantes/todos');
+        setResultados(response.data);
+        resultadosRef.current = response.data; // Actualiza la referencia con el valor más reciente
+      } catch (error) {
+        console.error('Error al obtener la lista de estudiantes:', error);
+      }
+    };
+
+    obtenerEstudiantes();
+  }, []); // Se ejecuta una vez al montar el componente
 
   const buscarEstudiantes = (terminoBusqueda) => {
     const terminos = terminoBusqueda.toLowerCase().trim().split(' ');
 
-    const resultadosFiltrados = estudiantesEjemplo.filter((estudiante) =>
+    const resultadosFiltrados = resultadosRef.current.filter((estudiante) =>
       terminos.every((termino) =>
         estudiante.nombres.toLowerCase().includes(termino) ||
         estudiante.apellidos.toLowerCase().includes(termino) ||
@@ -31,7 +38,6 @@ const ListaEstudiantes = () => {
     setResultados(resultadosFiltrados);
   };
 
-  // Llama a la función de búsqueda cada vez que cambia el valor del campo de búsqueda
   const handleInputChange = (e) => {
     const nuevoTermino = e.target.value;
     setBusqueda(nuevoTermino);
@@ -51,20 +57,31 @@ const ListaEstudiantes = () => {
             onChange={handleInputChange}
           />
         </div>
-        <ul>
-          {resultados.length > 0 ? (
-            resultados.map((estudiante) => (
-              <li key={estudiante.id} className="resultado">
-                <strong>{estudiante.nombres}</strong> - {estudiante.apellidos} - {estudiante.rut}
-                <Link to={`/estudiante/${estudiante.id}`}>
+
+        {resultados.length > 0 ? (
+          <ul>
+            <li className="cabecera">
+              <span>Rut</span>
+              <span>Nombres</span>
+              <span>Apellidos</span>
+              {/* Agrega más cabeceras según tus datos */}
+              <span>Ver Perfil</span>
+            </li>
+            {resultados.map((estudiante) => (
+              <li key={estudiante.rut} className="datos-estudiante">
+                <span>{estudiante.rut}</span>
+                <span>{estudiante.nombres}</span>
+                <span>{estudiante.apellidos}</span>
+                {/* Agrega más datos según tus campos */}
+                <Link to={`/estudiante/${estudiante.rut}`}>
                   <button className="ver-perfil">Ver Perfil</button>
                 </Link>
               </li>
-            ))
-          ) : (
-            <p>No se encontraron resultados.</p>
-          )}
-        </ul>
+            ))}
+          </ul>
+        ) : (
+          <p>No se encontraron resultados.</p>
+        )}
       </div>
     </div>
   );

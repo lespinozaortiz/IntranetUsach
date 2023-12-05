@@ -30,5 +30,9 @@ public class EstudianteService {
                 .orElseThrow(() -> new RuntimeException("Estudiante no encontrado con el rut: " + rut));
     }
 
+    public List<Estudiante> obtenerTodosLosEstudiantes() {
+        return estudianteRepository.findAll();
+    }
+
     // Otros métodos necesarios
 }
