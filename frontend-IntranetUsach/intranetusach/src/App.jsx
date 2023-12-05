@@ -7,7 +7,8 @@ import Estudiante from './components/Estudiante';
 import InscribirAsignaturas from './components/InscribirAsignaturas';
 import Asignaturas from './components/Asignaturas';
 import IngresoHorario from './components/IngresoHorario';
-
+import DetalleAsignatura from './components/DetalleAsignatura';
+import MallaInteractiva from './components/MallaInteractiva';
 
 const App = () => {
   return (
@@ -19,6 +20,8 @@ const App = () => {
         <Route path="/inscribir-asignaturas" element={<InscribirAsignaturas />} />
         <Route path="/asignaturas" element={<Asignaturas />} />
         <Route path="/ingreso-horario" element={<IngresoHorario />} />
+        <Route path="/ver-asignatura/:id" element={<DetalleAsignatura />} />
+        <Route path="/malla" element={<MallaInteractiva />} />
 
       </Routes>
     </Router>

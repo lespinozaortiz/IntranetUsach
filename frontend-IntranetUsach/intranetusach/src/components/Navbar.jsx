@@ -20,6 +20,7 @@ const Navbar = () => {
         <Link to="/inscribir-asignaturas">Inscribir Asignaturas</Link>
         <Link to="/asignaturas">Asignaturas</Link>
         <Link to="/ingreso-horario">Ingresar Horarios</Link>
+        <Link to="/malla">Malla Interactiva</Link>
         {/* Agrega otros enlaces según sea necesario */}
       </div>
     </div>

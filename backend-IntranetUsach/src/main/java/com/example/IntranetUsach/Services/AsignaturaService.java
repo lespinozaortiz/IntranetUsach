@@ -1,5 +1,6 @@
 package com.example.IntranetUsach.Services;
 
+import com.example.IntranetUsach.Entities.Asigcursadas;
 import com.example.IntranetUsach.Entities.Asignatura;
 import com.example.IntranetUsach.Entities.Carrera;
 import com.example.IntranetUsach.Entities.Prerrequisito;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AsignaturaService {
@@ -15,12 +17,18 @@ public class AsignaturaService {
     @Autowired
     private AsignaturaRepository asignaturaRepository;
 
+
+
+
+
+
+
     public List<Asignatura> getAllAsignaturas() {
         return asignaturaRepository.findAll();
     }
 
-    public Asignatura getAsignaturaById(Long id) {
-        return asignaturaRepository.findById(id).orElse(null);
+    public Optional<Asignatura> getAsignaturaById(Long id) {
+        return asignaturaRepository.findById(id);
     }
 
     public void saveAsignatura(Asignatura asignatura) {
@@ -40,5 +48,15 @@ public class AsignaturaService {
         // Aquí puedes agregar lógica adicional antes de guardar si es necesario
         return asignaturaRepository.save(asignatura);
     }
+
+    public Asignatura findById(Long id) {
+        return asignaturaRepository.findById(id).orElse(null);
+    }
+
+
+
+
+
+
 
 }

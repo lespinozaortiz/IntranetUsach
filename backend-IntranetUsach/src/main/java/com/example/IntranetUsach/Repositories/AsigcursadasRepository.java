@@ -16,4 +16,5 @@ public interface AsigcursadasRepository extends JpaRepository<Asigcursadas,Long>
     List<Asigcursadas> findByEstudiante(Estudiante estudiante);
 
 
+    List<Asigcursadas> findByAsignatura_Codasig(Long codAsignatura);
 }

@@ -1,5 +1,7 @@
+// InscribirAsignaturas.jsx
 import React, { useState } from 'react';
 import Navbar from './Navbar';
+import './InscribirAsignaturas.css';
 
 const InscribirAsignaturas = () => {
   const [rut, setRut] = useState('');
@@ -33,7 +35,7 @@ const InscribirAsignaturas = () => {
       } else {
         // Manejar errores de respuesta no exitosa
         const errorData = await response.json();
-        setMensaje(`Error: ${errorData.error || 'Error desconocido'}`);
+        handleErrorResponse(errorData);
       }
     } catch (error) {
       // Manejar el error
@@ -42,20 +44,39 @@ const InscribirAsignaturas = () => {
     }
   };
 
+  const handleErrorResponse = (errorData) => {
+    // Manejar diferentes casos de error
+    if (errorData.message === 'La asignatura no pertenece a la carrera del estudiante') {
+      setMensaje('Error: La asignatura no pertenece a la carrera del estudiante');
+    } else if (errorData.message === 'El estudiante ya ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel') {
+      setMensaje('Error: El estudiante ya ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel');
+    } else if (errorData.message === 'El estudiante no ha aprobado los prerequisitos de la asignatura') {
+      setMensaje('Error: El estudiante no ha aprobado los prerequisitos de la asignatura');
+    } else if (errorData.message === 'El estudiante ya ha cursado la asignatura 3 veces' || errorData.message === 'El estudiante ya ha cursado la asignatura 2 veces') {
+      setMensaje(`Error: ${errorData.message}`);
+    } else if (errorData.message === 'No hay cupo disponible en la asignatura') {
+      setMensaje('Error: No hay cupo disponible en la asignatura');
+    } else if (errorData.message === 'Ya hay un tope de horario para este módulo') {
+      setMensaje('Error: Ya hay un tope de horario para este módulo');
+    } else {
+      setMensaje(`Error desconocido: ${errorData.message}`);
+    }
+  };
+
   return (
-    <div>
+    <div className="container">
       <Navbar />
       <h2>Inscribir Asignaturas</h2>
-      <div>
+      <div className="input-container">
         <label>RUT del estudiante:</label>
         <input type="text" value={rut} onChange={(e) => setRut(e.target.value)} />
       </div>
-      <div>
+      <div className="input-container">
         <label>Código de asignatura:</label>
         <input type="text" value={codAsignatura} onChange={(e) => setCodAsignatura(e.target.value)} />
       </div>
       <button onClick={handleInscribir}>Inscribir Asignatura</button>
-      {mensaje && <p>{mensaje}</p>}
+      {mensaje && <p className="mensaje">{mensaje}</p>}
     </div>
   );
 };

@@ -70,5 +70,12 @@ public class AsigcursadasService {
     }
 
 
+    public List<Asigcursadas> findByAsignaturaId(Long idAsignatura) {
+        return asigcursadasRepository.findByAsignatura_Codasig(idAsignatura);
+    }
+
+
+
+
 
 }

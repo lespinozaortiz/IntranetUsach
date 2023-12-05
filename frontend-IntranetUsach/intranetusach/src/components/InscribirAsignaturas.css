@@ -1,0 +1,40 @@
+/* styles.css */
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.input-container {
+    margin-bottom: 15px; /* Aumentado el margen inferior para mayor separación entre campos */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px; /* Ajustado el margen inferior */
+}
+
+input {
+    width: 100%;
+    padding: 10px; /* Ajustado el padding */
+    margin-bottom: 15px; /* Aumentado el margen inferior */
+    box-sizing: border-box; /* Añadido box-sizing para incluir el padding en el ancho total */
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    padding: 12px 15px; /* Ajustado el padding */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.mensaje {
+    margin-top: 15px; /* Aumentado el margen superior para separación del mensaje */
+    color: #ff0000;
+}
