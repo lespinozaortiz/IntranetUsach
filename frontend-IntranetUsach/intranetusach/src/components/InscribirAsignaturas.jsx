@@ -8,6 +8,7 @@ const InscribirAsignaturas = () => {
   const [codAsignatura, setCodAsignatura] = useState('');
   const [mensaje, setMensaje] = useState('');
   const [nombreAsignatura, setNombreAsignatura] = useState('');
+  const [exitoInscripcion, setExitoInscripcion] = useState(false);
 
   useEffect(() => {
     // Función para obtener el nombre de la asignatura
@@ -44,6 +45,7 @@ const InscribirAsignaturas = () => {
       // Validación de entrada
       if (!rut || !codAsignatura) {
         setMensaje('Por favor, completa todos los campos.');
+        setExitoInscripcion(false);
         return;
       }
 
@@ -61,37 +63,22 @@ const InscribirAsignaturas = () => {
 
       // Manejar la respuesta exitosa
       if (response.ok) {
-        const data = await response.json();
-        setMensaje(data.message); // Ajusta según la estructura real de la respuesta
+        setExitoInscripcion(true);
+        setMensaje('Inscripción exitosa.');
       } else {
-        // Manejar errores de respuesta no exitosa
         const errorData = await response.json();
+        setExitoInscripcion(false);
         handleErrorResponse(errorData);
       }
     } catch (error) {
-      // Manejar el error
       console.error('Error al realizar la solicitud:', error);
+      setExitoInscripcion(false);
       setMensaje(error.message || 'Error desconocido');
     }
   };
 
   const handleErrorResponse = (errorData) => {
-    // Manejar diferentes casos de error
-    if (errorData.message === 'La asignatura no pertenece a la carrera del estudiante') {
-      setMensaje('Error: La asignatura no pertenece a la carrera del estudiante');
-    } else if (errorData.message === 'El estudiante ya ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel') {
-      setMensaje('Error: El estudiante ya ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel');
-    } else if (errorData.message === 'El estudiante no ha aprobado los prerequisitos de la asignatura') {
-      setMensaje('Error: El estudiante no ha aprobado los prerequisitos de la asignatura');
-    } else if (errorData.message === 'El estudiante ya ha cursado la asignatura 3 veces' || errorData.message === 'El estudiante ya ha cursado la asignatura 2 veces') {
-      setMensaje(`Error: ${errorData.message}`);
-    } else if (errorData.message === 'No hay cupo disponible en la asignatura') {
-      setMensaje('Error: No hay cupo disponible en la asignatura');
-    } else if (errorData.message === 'Ya hay un tope de horario para este módulo') {
-      setMensaje('Error: Ya hay un tope de horario para este módulo');
-    } else {
-      setMensaje(`Error desconocido: ${errorData.message}`);
-    }
+    // ... (mantén esta función como está)
   };
 
   return (
@@ -107,13 +94,12 @@ const InscribirAsignaturas = () => {
           <label>Código de asignatura:</label>
           <input type="text" value={codAsignatura} onChange={(e) => setCodAsignatura(e.target.value)} />
         </div>
-        {/* Nuevo div para mostrar el nombre de la asignatura */}
         <div className="input-container">
           <label>Nombre de la asignatura:</label>
           <p>{nombreAsignatura}</p>
         </div>
         <button onClick={handleInscribir}>Inscribir Asignatura</button>
-        {mensaje && <p className="mensaje">{mensaje}</p>}
+        {mensaje && <p className={`mensaje ${exitoInscripcion ? 'exito' : 'error'}`}>{mensaje}</p>}
       </div>
     </div>
   );

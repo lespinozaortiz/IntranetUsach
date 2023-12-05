@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
 import './IngresoHorario.css'; // Asegúrate de importar el archivo CSS
@@ -23,7 +23,7 @@ const IngresoHorario = () => {
     Sábado: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'],
   });
 
-  const [horasInicioFin, setHorasInicioFin] = useState({
+  const [horasInicioFin] = useState({
     'L1': ['08:15', '09:35'],
     'L2': ['09:50', '11:10'],
     'L3': ['11:25', '12:45'],
@@ -66,13 +66,31 @@ const IngresoHorario = () => {
     'S5': ['15:20', '16:40'],
     'S6': ['16:55', '18:15'],
     'S7': ['18:45', '20:05'],
-    
   });
+
+  const [asignaturaNombre, setAsignaturaNombre] = useState('');
 
   const [alerta, setAlerta] = useState({
     tipo: '',
     mensaje: '',
   });
+
+  useEffect(() => {
+    // Realiza una solicitud al servidor para obtener el nombre de la asignatura por su ID
+    const fetchAsignaturaNombre = async () => {
+      try {
+        if (horario.asignaturaId) {
+          const response = await axios.get(`http://localhost:8090/api/asignaturas/${horario.asignaturaId}`);
+          setAsignaturaNombre(response.data.nombreasig || 'Nombre no disponible');
+        }
+      } catch (error) {
+        console.error('Error al obtener el nombre de la asignatura:', error);
+        setAsignaturaNombre('Nombre no disponible');
+      }
+    };
+
+    fetchAsignaturaNombre();
+  }, [horario.asignaturaId]);
 
   const handleDiaChange = (e) => {
     const selectedDia = e.target.value;
@@ -116,6 +134,14 @@ const IngresoHorario = () => {
       console.log('Horario guardado:', response.data);
 
       setAlerta({ tipo: 'success', mensaje: 'Horario guardado correctamente.' });
+      // Limpiar el formulario después de guardar con éxito
+      setHorario({
+        asignaturaId: '',
+        dia: '',
+        modulo: '',
+        horaInicio: '',
+        horaFinal: '',
+      });
     } catch (error) {
       console.error('Error al guardar el horario:', error);
 
@@ -124,62 +150,66 @@ const IngresoHorario = () => {
   };
 
   return (
-    <div className="pagina">
+    <div>
       <Navbar />
-      <div className="horario-form">
-        <h2>Ingreso de Horario-Asignatura</h2>
+      <div className="pagina">
+        <div className="horario-form">
+          <h2>Ingreso de Horario-Asignatura</h2>
 
-        {alerta.tipo && (
-          <div className={`alerta ${alerta.tipo}`}>
-            {alerta.mensaje}
-          </div>
-        )}
+          {alerta.tipo && (
+            <div className={`alerta ${alerta.tipo}`}>
+              {alerta.mensaje}
+            </div>
+          )}
 
-        <label>ID de Asignatura: </label>
-        <input
-          type="text"
-          value={horario.asignaturaId}
-          onChange={(e) => setHorario({ ...horario, asignaturaId: e.target.value })}
-        />
+          <label>ID de Asignatura: </label>
+          <input
+            type="text"
+            value={horario.asignaturaId}
+            onChange={(e) => setHorario({ ...horario, asignaturaId: e.target.value })}
+          />
 
-        <label>Día: </label>
-        <select value={horario.dia} onChange={handleDiaChange}>
-          <option value="">Seleccione un día</option>
-          {diasOptions.map((dia) => (
-            <option key={dia} value={dia}>
-              {dia}
-            </option>
-          ))}
-        </select>
+          <div>Nombre de la Asignatura: {asignaturaNombre}</div>
 
-        <label>Módulo: </label>
-        <select value={horario.modulo} onChange={handleModuloChange}>
-          <option value="">Seleccione un módulo</option>
-          {horario.dia &&
-            modulosOptions[horario.dia].map((modulo) => (
-              <option key={modulo} value={modulo}>
-                {modulo}
+          <label>Día: </label>
+          <select value={horario.dia} onChange={handleDiaChange}>
+            <option value="">Seleccione un día</option>
+            {diasOptions.map((dia) => (
+              <option key={dia} value={dia}>
+                {dia}
               </option>
             ))}
-        </select>
+          </select>
 
-        <label>Hora de Inicio: </label>
-        <input
-          type="text"
-          value={horario.horaInicio}
-          onChange={(e) => setHorario({ ...horario, horaInicio: e.target.value })}
-          disabled
-        />
+          <label>Módulo: </label>
+          <select value={horario.modulo} onChange={handleModuloChange}>
+            <option value="">Seleccione un módulo</option>
+            {horario.dia &&
+              modulosOptions[horario.dia].map((modulo) => (
+                <option key={modulo} value={modulo}>
+                  {modulo}
+                </option>
+              ))}
+          </select>
 
-        <label>Hora Final: </label>
-        <input
-          type="text"
-          value={horario.horaFinal}
-          onChange={(e) => setHorario({ ...horario, horaFinal: e.target.value })}
-          disabled
-        />
+          <label>Hora de Inicio: </label>
+          <input
+            type="text"
+            value={horario.horaInicio}
+            onChange={(e) => setHorario({ ...horario, horaInicio: e.target.value })}
+            disabled
+          />
 
-        <button onClick={handleGuardarHorario}>Guardar Horario</button>
+          <label>Hora Final: </label>
+          <input
+            type="text"
+            value={horario.horaFinal}
+            onChange={(e) => setHorario({ ...horario, horaFinal: e.target.value })}
+            disabled
+          />
+
+          <button onClick={handleGuardarHorario}>Guardar Horario</button>
+        </div>
       </div>
     </div>
   );
