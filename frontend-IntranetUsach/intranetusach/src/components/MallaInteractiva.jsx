@@ -13,16 +13,15 @@ const MallaInteractiva = () => {
     // Aquí realiza las solicitudes necesarias para obtener la información del estudiante, asignaturas, etc.
     const fetchData = async () => {
       try {
-        // Ejemplo de solicitud para obtener datos del estudiante (reemplaza la URL con la correcta)
+        // Ejemplo de solicitud para obtener datos del estudiante 
         const estudianteResponse = await axios.get('http://localhost:8090/api/estudiantes/123');
         setEstudiante(estudianteResponse.data);
 
-        // Ejemplo de solicitud para obtener asignaturas aprobadas (reemplaza la URL con la correcta)
+        // Ejemplo de solicitud para obtener asignaturas aprobadas 
         const asignaturasAprobadasResponse = await axios.get('http://localhost:8090/api/asignaturas/aprobadas/123');
         setAsignaturasAprobadas(asignaturasAprobadasResponse.data);
 
-        // Agrega solicitudes adicionales según sea necesario
-        // ...
+       
 
       } catch (error) {
         console.error('Error al obtener datos:', error);

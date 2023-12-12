@@ -10,31 +10,31 @@
 }
 
 .input-container {
-    margin-bottom: 15px; /* Aumentado el margen inferior para mayor separación entre campos */
+    margin-bottom: 15px; /* Aumenta el margen inferior para mayor separación entre campos */
 }
 
 label {
     display: block;
-    margin-bottom: 8px; /* Ajustado el margen inferior */
+    margin-bottom: 8px; /* Ajusta el margen inferior */
 }
 
 input {
     width: 100%;
-    padding: 10px; /* Ajustado el padding */
-    margin-bottom: 15px; /* Aumentado el margen inferior */
-    box-sizing: border-box; /* Añadido box-sizing para incluir el padding en el ancho total */
+    padding: 10px; /* Ajusta el padding */
+    margin-bottom: 15px; /* Aument el margen inferior */
+    box-sizing: border-box; /* Añade box-sizing para incluir el padding en el ancho total */
 }
 
 button {
     background-color: #4caf50;
     color: white;
-    padding: 12px 15px; /* Ajustado el padding */
+    padding: 12px 15px; /* Ajusta el padding */
     border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
 .mensaje {
-    margin-top: 15px; /* Aumentado el margen superior para separación del mensaje */
+    margin-top: 15px; /* Aumenta el margen superior para separación del mensaje */
     color: #ff0000;
 }

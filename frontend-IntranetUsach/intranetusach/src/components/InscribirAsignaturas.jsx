@@ -25,7 +25,7 @@ const InscribirAsignaturas = () => {
         const data = await response.json();
 
         if (response.ok) {
-          // Asumimos que la respuesta es un objeto JSON con el campo 'nombreasig'
+          // Se asume que la respuesta es un objeto JSON con el campo 'nombreasig'
           setNombreAsignatura(data && data.nombreasig ? data.nombreasig : 'Nombre no disponible');
         } else {
           setNombreAsignatura('Nombre no disponible');
@@ -78,7 +78,7 @@ const InscribirAsignaturas = () => {
   };
 
   const handleErrorResponse = (errorData) => {
-    // ... (mantén esta función como está)
+    
   };
 
   return (

@@ -9,7 +9,7 @@ const estudiantesEjemplo = [
   { id: 2, nombres: 'María Alejandra', rut: '98765432-1', apellidos: 'Gómez Smith' },
   { id: 3, nombres: 'Pedro Andrés', rut: '45678901-2', apellidos: 'Rodríguez López' },
   { id: 4, nombres: 'Leonardo Iván', rut: '20424317-4', apellidos: 'Espinoza Ortiz' },
-  // Agrega más estudiantes según sea necesario
+ 
 ];
 
 const Estudiante = ({ match }) => {

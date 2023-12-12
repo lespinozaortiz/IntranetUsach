@@ -7,7 +7,7 @@
 .buscador {
   margin-bottom: 20px;
   display: flex;
-  align-items: center; /* Alinea verticalmente los elementos en el buscador */
+  align-items: center; /
 }
 
 .buscador input {

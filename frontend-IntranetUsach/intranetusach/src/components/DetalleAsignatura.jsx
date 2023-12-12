@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import { useParams } from 'react-router-dom';
-import './DetalleAsignatura.css'; // Agrega tu archivo de estilos
+import './DetalleAsignatura.css'; 
 import axios from 'axios';
 
 const DetalleAsignatura = () => {

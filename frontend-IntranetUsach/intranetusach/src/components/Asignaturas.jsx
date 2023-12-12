@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import './Asignaturas.css'; // Importa el archivo de estilos
+import './Asignaturas.css'; 
 import { Link } from 'react-router-dom';
 
 const Asignaturas = () => {

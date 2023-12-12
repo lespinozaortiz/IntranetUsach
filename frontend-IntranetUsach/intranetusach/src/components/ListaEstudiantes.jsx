@@ -64,7 +64,7 @@ const ListaEstudiantes = () => {
               <span>Rut</span>
               <span>Nombres</span>
               <span>Apellidos</span>
-              {/* Agrega más cabeceras según tus datos */}
+              {/* Se agregan cabeceras */}
               <span>Ver Perfil</span>
             </li>
             {resultados.map((estudiante) => (
@@ -72,7 +72,7 @@ const ListaEstudiantes = () => {
                 <span>{estudiante.rut}</span>
                 <span>{estudiante.nombres}</span>
                 <span>{estudiante.apellidos}</span>
-                {/* Agrega más datos según tus campos */}
+                {/* Datos de campos */}
                 <Link to={`/estudiante/${estudiante.rut}`}>
                   <button className="ver-perfil">Ver Perfil</button>
                 </Link>

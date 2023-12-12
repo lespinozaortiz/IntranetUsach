@@ -14,7 +14,7 @@ const Home = () => {
           <p>
             ¡Bienvenidos al semestre! Aquí encontrarás las últimas noticias y eventos importantes de la universidad.
           </p>
-          {/* Agrega más contenido de noticias según sea necesario */}
+          {/* Contenido de noticias */}
         </section>
         <aside className="informacion-inscripcion">
           <h3>Información para la Inscripción de Asignaturas</h3>

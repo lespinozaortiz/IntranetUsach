@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navbar from './Navbar';
-import './IngresoHorario.css'; // Asegúrate de importar el archivo CSS
+import './IngresoHorario.css';
 
 const IngresoHorario = () => {
   const [horario, setHorario] = useState({

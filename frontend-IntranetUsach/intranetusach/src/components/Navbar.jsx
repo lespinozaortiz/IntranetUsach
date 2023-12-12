@@ -10,7 +10,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="logo">
         <Link to="/">
-          {/* Utiliza la URL directamente para cargar la imagen */}
+         
           <img src={logoUrl} alt="Logo" />
         </Link>
       </div>
@@ -21,7 +21,7 @@ const Navbar = () => {
         <Link to="/asignaturas">Asignaturas</Link>
         <Link to="/ingreso-horario">Ingresar Horarios</Link>
         <Link to="/malla">Malla Interactiva</Link>
-        {/* Agrega otros enlaces según sea necesario */}
+
       </div>
     </div>
   );
