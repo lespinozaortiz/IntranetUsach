@@ -17,6 +17,6 @@ public class Prerrequisito {
     private Long idprerrequisito;
     @ManyToOne
     @JoinColumn(name = "codasig")
-    private Asignatura asignatura;
+    private Asignatura asignatura;//llave foranea
     private int codprerrequisito;
 }

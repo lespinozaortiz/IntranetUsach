@@ -20,11 +20,11 @@ public class HorariosController {
         this.horariosService = horariosService;
     }
 
-// Resto del código...
+
 
     @PostMapping("/agregar")
     public ResponseEntity<?> agregarHorario(@RequestBody Horarios horario) {
-        // Aquí debemos verificar que la asignatura no sea nula
+        //  verificar que la asignatura no sea nula
         if (horario.getAsignatura() == null || horario.getAsignatura().getCodasig() == null) {
             // Manejo de error, por ejemplo, lanzar una excepción o devolver un ResponseEntity con un mensaje de error.
             return ResponseEntity.badRequest().body("La asignatura no puede ser nula.");

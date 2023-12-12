@@ -14,10 +14,10 @@ public class PrerrequisitoService {
     @Autowired
     private PrerrequisitoRepository prerrequisitoRepository;
 
-    // Otros métodos y servicios necesarios
+
 
     public List<Prerrequisito> getPrerrequisitosByAsignatura(Asignatura asignatura) {
-        // Lógica para obtener los prerrequisitos de una asignatura específica
+
         return prerrequisitoRepository.findByAsignatura(asignatura);
     }
 
@@ -25,5 +25,5 @@ public class PrerrequisitoService {
         return prerrequisitoRepository.findByAsignatura_codasig(codAsignatura);
     }
 
-    // Otros métodos y servicios necesarios
+
 }

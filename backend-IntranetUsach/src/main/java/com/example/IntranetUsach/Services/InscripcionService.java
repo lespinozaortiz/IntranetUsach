@@ -108,7 +108,6 @@ public class InscripcionService {
             asignatura.setCantidadestudiantes(asignatura.getCantidadestudiantes() + 1);
             asignaturaService.save(asignatura);
 
-            // Añadir un mensaje de depuración después de guardar
             System.out.println("Asignatura guardada en la base de datos");
         } catch (Exception e) {
             e.printStackTrace();

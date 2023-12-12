@@ -30,7 +30,6 @@ public class AsigcursadasService {
         asigcursadasRepository.save(asigcursadas);
     }
 
-    // Otros métodos necesarios
 
     public long countByEstudiante(Estudiante estudiante) {
         return asigcursadasRepository.countByEstudiante(estudiante);

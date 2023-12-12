@@ -18,11 +18,6 @@ public class AsignaturaService {
     private AsignaturaRepository asignaturaRepository;
 
 
-
-
-
-
-
     public List<Asignatura> getAllAsignaturas() {
         return asignaturaRepository.findAll();
     }
@@ -45,7 +40,6 @@ public class AsignaturaService {
         return asignaturaRepository.findByCarreraCodcarrAndNivel(codCarrera,nivel);
     }
     public Asignatura save(Asignatura asignatura) {
-        // Aquí puedes agregar lógica adicional antes de guardar si es necesario
         return asignaturaRepository.save(asignatura);
     }
 

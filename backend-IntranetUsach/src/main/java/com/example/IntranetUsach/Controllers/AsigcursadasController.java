@@ -29,5 +29,5 @@ public class AsigcursadasController {
         return new ResponseEntity<>(estudiantesCursando, HttpStatus.OK);
     }
 
-    // Puedes agregar más métodos según tus necesidades
+
 }

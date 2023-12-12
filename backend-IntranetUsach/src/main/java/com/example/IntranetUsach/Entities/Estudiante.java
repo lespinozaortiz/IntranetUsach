@@ -22,7 +22,7 @@ public class Estudiante {
     private String email;
     @OneToOne
     @JoinColumn(name = "codcarr")
-    private Carrera carrera;
+    private Carrera carrera;//llave foranea
     @Column(name = "cantidadasignaturas", nullable = true)
     private Integer cantidadasig;
     @Column(name = "nivel", nullable = true)

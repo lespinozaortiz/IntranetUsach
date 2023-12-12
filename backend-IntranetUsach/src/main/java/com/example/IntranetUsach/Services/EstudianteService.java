@@ -34,5 +34,4 @@ public class EstudianteService {
         return estudianteRepository.findAll();
     }
 
-    // Otros métodos necesarios
 }
