@@ -1,4 +1,3 @@
-// Importa useState y useEffect desde 'react'
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
 import './InscribirAsignaturas.css';
@@ -11,7 +10,6 @@ const InscribirAsignaturas = () => {
   const [exitoInscripcion, setExitoInscripcion] = useState(false);
 
   useEffect(() => {
-    // Función para obtener el nombre de la asignatura
     const obtenerNombreAsignatura = async () => {
       try {
         if (!codAsignatura) {
@@ -20,12 +18,9 @@ const InscribirAsignaturas = () => {
         }
 
         const response = await fetch(`http://localhost:8090/api/asignaturas/${codAsignatura}`);
-        console.log('Respuesta del servidor:', response);
-
         const data = await response.json();
 
         if (response.ok) {
-          // Se asume que la respuesta es un objeto JSON con el campo 'nombreasig'
           setNombreAsignatura(data && data.nombreasig ? data.nombreasig : 'Nombre no disponible');
         } else {
           setNombreAsignatura('Nombre no disponible');
@@ -36,20 +31,17 @@ const InscribirAsignaturas = () => {
       }
     };
 
-    // Llama a la función para obtener el nombre de la asignatura cuando cambia el código
     obtenerNombreAsignatura();
   }, [codAsignatura]);
 
   const handleInscribir = async () => {
     try {
-      // Validación de entrada
       if (!rut || !codAsignatura) {
         setMensaje('Por favor, completa todos los campos.');
         setExitoInscripcion(false);
         return;
       }
 
-      // Realizar la solicitud HTTP para inscribir la asignatura
       const response = await fetch('http://localhost:8090/api/inscripcion/inscribir', {
         method: 'POST',
         headers: {
@@ -59,26 +51,50 @@ const InscribirAsignaturas = () => {
         mode: 'cors',
       });
 
-      console.log('Respuesta completa:', response);
-
-      // Manejar la respuesta exitosa
       if (response.ok) {
         setExitoInscripcion(true);
         setMensaje('Inscripción exitosa.');
       } else {
         const errorData = await response.json();
         setExitoInscripcion(false);
-        handleErrorResponse(errorData);
+
+        if (response.status === 500 && errorData.error && errorData.error.includes("La asignatura no pertenece a la carrera del estudiante")) {
+          setMensaje('Error al inscribir la asignatura: La asignatura no pertenece a la carrera del estudiante');
+        } else if (response.status === 500 && errorData.error && errorData.error.includes("El estudiante ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel")) {
+          setMensaje('Error al inscribir la asignatura: El estudiante ha alcanzado el máximo de asignaturas permitidas para su carrera y nivel');
+        } else if (response.status === 500 && errorData.error && errorData.error.includes("El estudiante no ha aprobado los prerequisitos de la asignatura")) {
+          setMensaje('Error al inscribir la asignatura: El estudiante no ha aprobado los prerequisitos de la asignatura');
+        } else if (response.status === 500 && errorData.error && errorData.error.includes("El estudiante ha cursado la asignatura el máximo de veces permitido")) {
+          setMensaje('Error al inscribir la asignatura: El estudiante ha alcanzado el límite de veces permitido para cursar la asignatura');
+        } else if (response.status === 500 && errorData.error && errorData.error.includes("No hay cupo disponible en la asignatura")) {
+          setMensaje('Error al inscribir la asignatura: No hay cupo disponible en la asignatura');
+        } else if (response.status === 500 && errorData.error && errorData.error.includes("Ya hay un tope de horario para este módulo")) {
+          setMensaje('Error al inscribir la asignatura: Ya hay un tope de horario para este módulo');
+        } else {
+          // Imprimir el error en la consola del navegador
+          console.error(errorData);
+
+          handleErrorResponse(errorData);
+        }
       }
     } catch (error) {
       console.error('Error al realizar la solicitud:', error);
+
+      // Actualizar el estado con un mensaje de error genérico
       setExitoInscripcion(false);
-      setMensaje(error.message || 'Error desconocido');
+
+      if (error.message && error.message.includes("query did not return a unique result")) {
+        // Agregar un mensaje específico para el error de resultado no único
+        setMensaje('Error al inscribir la asignatura: La consulta no devolvió un resultado único');
+      } else {
+        setMensaje('Error al inscribir la asignatura. Inténtalo de nuevo.');
+      }
     }
   };
 
   const handleErrorResponse = (errorData) => {
-    
+    // Manejar otras situaciones de error si es necesario
+    // Puedes agregar más lógica aquí para manejar diferentes tipos de errores
   };
 
   return (

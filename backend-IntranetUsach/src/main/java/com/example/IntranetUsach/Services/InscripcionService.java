@@ -18,13 +18,10 @@ public class InscripcionService {
     private AsignaturaService asignaturaService;
 
     @Autowired
-    private PrerrequisitoService prerrequisitoService;
-
-    @Autowired
-    private NotaService notaService;
-
-    @Autowired
     private AsigcursadasService asigcursadasService;
+
+    @Autowired
+    private PrerrequisitoService prerrequisitoService;
 
     @Autowired
     private HorariosService horariosService;
@@ -64,7 +61,7 @@ public class InscripcionService {
             Integer vecesCursada = asigcursadasService.findVecesCursadaByEstudianteAndAsignatura(rut, cod_asignatura);
             System.out.println("Número de veces que el estudiante ha cursado la asignatura: " + vecesCursada);
 
-            // Asignar 0 si el valor es nulo
+// Asignar 0 si el valor es nulo
             vecesCursada = (vecesCursada != null) ? vecesCursada : 0;
 
             if (vecesCursada != null) {
@@ -73,10 +70,11 @@ public class InscripcionService {
                 System.out.println("Veces cursadas por el estudiante: " + vecesCursada);
 
                 // Comprobar si el estudiante ya ha cursado la asignatura el número máximo de veces permitido
-                if (vecesCursada >= limiteCursadas) {
+                if (vecesCursada < limiteCursadas) {
+                    System.out.println("pasa quinto if");
+                } else {
                     throw new RuntimeException("El estudiante ha cursado la asignatura el máximo de veces permitido (" + limiteCursadas + " veces)");
                 }
-                System.out.println("pasa quinto if");
             }
 
             // Comprobar si hay cupo en la asignatura
@@ -109,13 +107,19 @@ public class InscripcionService {
             asignaturaService.save(asignatura);
 
             System.out.println("Asignatura guardada en la base de datos");
+        } catch (RuntimeException e) {
+            throw e; // Permite que esta excepción se propague
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al inscribir la asignatura: " + e.getMessage());
+            throw new RuntimeException("Error al inscribir la asignatura: " + e.getMessage());
         }
     }
 
 
 
 }
+
+
+
+
+
 

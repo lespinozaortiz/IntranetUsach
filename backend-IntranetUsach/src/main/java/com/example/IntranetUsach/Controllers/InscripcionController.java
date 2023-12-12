@@ -23,8 +23,8 @@ public class InscripcionController {
             Long cod_Asignatura = Long.parseLong(payload.get("cod_Asignatura").toString());
 
             inscripcionService.inscribirAsignatura(rut, cod_Asignatura);
-            return ResponseEntity.ok("{\"message\": \"\"}");
-        } catch (Exception e) {
+            return ResponseEntity.ok("{\"message\": \"Inscripción exitosa.\"}");
+        } catch (RuntimeException e) {
             String errorMessage = "Error al inscribir la asignatura: " + e.getMessage();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"error\": \"" + errorMessage + "\"}");
         }
