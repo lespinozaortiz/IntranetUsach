@@ -13,60 +13,7 @@ const IngresoHorario = () => {
   });
 
   const [diasOptions] = useState(['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']);
-
-  const [modulosOptions, setModulosOptions] = useState({
-    Lunes: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6', 'L7'],
-    Martes: ['M1', 'M2', 'M3', 'M4', 'M5', 'M6', 'M7'],
-    Miércoles: ['W1', 'W2', 'W3', 'W4', 'W5', 'W6', 'W7'],
-    Jueves: ['J1', 'J2', 'J3', 'J4', 'J5', 'J6', 'J7'],
-    Viernes: ['V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7'],
-    Sábado: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7'],
-  });
-
-  const [horasInicioFin] = useState({
-    'L1': ['08:15', '09:35'],
-    'L2': ['09:50', '11:10'],
-    'L3': ['11:25', '12:45'],
-    'L4': ['13:45', '15:05'],
-    'L5': ['15:20', '16:40'],
-    'L6': ['16:55', '18:15'],
-    'L7': ['18:45', '20:05'],
-    'M1': ['08:15', '09:35'],
-    'M2': ['09:50', '11:10'],
-    'M3': ['11:25', '12:45'],
-    'M4': ['13:45', '15:05'],
-    'M5': ['15:20', '16:40'],
-    'M6': ['16:55', '18:15'],
-    'M7': ['18:45', '20:05'],
-    'W1': ['08:15', '09:35'],
-    'W2': ['09:50', '11:10'],
-    'W3': ['11:25', '12:45'],
-    'W4': ['13:45', '15:05'],
-    'W5': ['15:20', '16:40'],
-    'W6': ['16:55', '18:15'],
-    'W7': ['18:45', '20:05'],
-    'J1': ['08:15', '09:35'],
-    'J2': ['09:50', '11:10'],
-    'J3': ['11:25', '12:45'],
-    'J4': ['13:45', '15:05'],
-    'J5': ['15:20', '16:40'],
-    'J6': ['16:55', '18:15'],
-    'J7': ['18:45', '20:05'],
-    'V1': ['08:15', '09:35'],
-    'V2': ['09:50', '11:10'],
-    'V3': ['11:25', '12:45'],
-    'V4': ['13:45', '15:05'],
-    'V5': ['15:20', '16:40'],
-    'V6': ['16:55', '18:15'],
-    'V7': ['18:45', '20:05'],
-    'S1': ['08:15', '09:35'],
-    'S2': ['09:50', '11:10'],
-    'S3': ['11:25', '12:45'],
-    'S4': ['13:45', '15:05'],
-    'S5': ['15:20', '16:40'],
-    'S6': ['16:55', '18:15'],
-    'S7': ['18:45', '20:05'],
-  });
+  const [modulosOptions, setModulosOptions] = useState([]);
 
   const [asignaturaNombre, setAsignaturaNombre] = useState('');
 
@@ -76,12 +23,11 @@ const IngresoHorario = () => {
   });
 
   useEffect(() => {
-    // Realiza una solicitud al servidor para obtener el nombre de la asignatura por su ID
     const fetchAsignaturaNombre = async () => {
       try {
         if (horario.asignaturaId) {
           const response = await axios.get(`http://localhost:8090/api/asignaturas/${horario.asignaturaId}`);
-          setAsignaturaNombre(response.data.nombreasig || 'Nombre no disponible');
+          setAsignaturaNombre(response.data ? response.data.nombreasig || 'Nombre no disponible' : 'Nombre no disponible');
         }
       } catch (error) {
         console.error('Error al obtener el nombre de la asignatura:', error);
@@ -96,25 +42,28 @@ const IngresoHorario = () => {
     const selectedDia = e.target.value;
     setHorario({ ...horario, dia: selectedDia, modulo: '', horaInicio: '', horaFinal: '' });
 
-    // Si hay un día seleccionado, actualiza los módulos disponibles
+    // Calcular las opciones de módulos para el día seleccionado
     if (selectedDia) {
-      setModulosOptions({
-        ...modulosOptions,
-        [selectedDia]: modulosOptions[selectedDia],
-      });
+      const letraDia = selectedDia.charAt(0).toUpperCase();
+      setModulosOptions([...Array(7).keys()].map((i) => `${letraDia}${i + 1}`));
+    } else {
+      setModulosOptions([]);
     }
   };
 
   const handleModuloChange = (e) => {
     const selectedModulo = e.target.value;
 
-    // Verifica que selectedModulo esté definido y sea una clave en horasInicioFin
-    if (selectedModulo && horasInicioFin.hasOwnProperty(selectedModulo)) {
+    // Calcular las horas de inicio y final para el módulo seleccionado
+    if (selectedModulo && horario.dia) {
+      const horasInicio = `${selectedModulo.charAt(1) * 2 + 6}:15`;
+      const horasFinal = `${selectedModulo.charAt(1) * 2 + 7}:35`;
+
       setHorario({
         ...horario,
         modulo: selectedModulo,
-        horaInicio: horasInicioFin[selectedModulo][0],
-        horaFinal: horasInicioFin[selectedModulo][1],
+        horaInicio: horasInicio,
+        horaFinal: horasFinal,
       });
     } else {
       console.error('Error al seleccionar el módulo:', selectedModulo);
@@ -134,7 +83,6 @@ const IngresoHorario = () => {
       console.log('Horario guardado:', response.data);
 
       setAlerta({ tipo: 'success', mensaje: 'Horario guardado correctamente.' });
-      // Limpiar el formulario después de guardar con éxito
       setHorario({
         asignaturaId: '',
         dia: '',
@@ -145,7 +93,11 @@ const IngresoHorario = () => {
     } catch (error) {
       console.error('Error al guardar el horario:', error);
 
-      setAlerta({ tipo: 'error', mensaje: 'No se pudo guardar el horario. Inténtalo de nuevo.' });
+      if (error.response && error.response.status === 400) {
+        setAlerta({ tipo: 'error', mensaje: 'Ese horario ya existe. Inténtalo de nuevo.' });
+      } else {
+        setAlerta({ tipo: 'error', mensaje: 'No se pudo guardar el horario. Inténtalo de nuevo.' });
+      }
     }
   };
 
@@ -184,12 +136,11 @@ const IngresoHorario = () => {
           <label>Módulo: </label>
           <select value={horario.modulo} onChange={handleModuloChange}>
             <option value="">Seleccione un módulo</option>
-            {horario.dia &&
-              modulosOptions[horario.dia].map((modulo) => (
-                <option key={modulo} value={modulo}>
-                  {modulo}
-                </option>
-              ))}
+            {modulosOptions.map((modulo) => (
+              <option key={modulo} value={modulo}>
+                {modulo}
+              </option>
+            ))}
           </select>
 
           <label>Hora de Inicio: </label>

@@ -36,6 +36,12 @@ public class HorariosService {
         }
         return false; // No hay tope de horario
     }
+    public boolean existeHorario(Horarios horario) {
+        // Utiliza el repositorio para realizar la verificación
+        return horariosRepository.existsByAsignaturaAndDiaAndModulo(
+                horario.getAsignatura(), horario.getDia(), horario.getModulo());
+    }
+
 
     public List<Horarios> getHorariosByAsignaturaCod(Long codAsignatura) {
         return horariosRepository.findByAsignatura_Codasig(codAsignatura);

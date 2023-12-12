@@ -13,4 +13,6 @@ public interface HorariosRepository extends JpaRepository<Horarios,Long> {
     Horarios findByAsignaturaAndModulo(Asignatura asignatura, String modulo);
 
     List<Horarios> findByAsignatura_Codasig(Long codAsignatura);
+
+    boolean existsByAsignaturaAndDiaAndModulo(Asignatura asignatura, String dia, String modulo);
 }

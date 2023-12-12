@@ -24,16 +24,23 @@ public class HorariosController {
 
     @PostMapping("/agregar")
     public ResponseEntity<?> agregarHorario(@RequestBody Horarios horario) {
-        //  verificar que la asignatura no sea nula
+        // Verificar que la asignatura no sea nula
         if (horario.getAsignatura() == null || horario.getAsignatura().getCodasig() == null) {
             // Manejo de error, por ejemplo, lanzar una excepción o devolver un ResponseEntity con un mensaje de error.
             return ResponseEntity.badRequest().body("La asignatura no puede ser nula.");
+        }
+
+        // Verificar si ya existe un horario para la asignatura, el día y el módulo seleccionados
+        if (horariosService.existeHorario(horario)) {
+            // Manejo de error, por ejemplo, devolver un ResponseEntity con un mensaje de error.
+            return ResponseEntity.badRequest().body("Ya existe un horario para la asignatura, día y módulo seleccionados.");
         }
 
         // Guardar el horario
         Horarios horarioGuardado = horariosService.guardarHorario(horario);
         return ResponseEntity.ok(horarioGuardado);
     }
+
 
     @GetMapping("/getByAsignatura")
     public List<Horarios> getHorariosByAsignatura(@RequestParam Long codAsignatura) {
